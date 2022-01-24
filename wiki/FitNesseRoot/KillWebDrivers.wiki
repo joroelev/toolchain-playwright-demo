@@ -1,0 +1,15 @@
+---
+Test
+---
+!define TEST_SYSTEM {slim}
+!path fixtures
+!path fixtures/*.jar
+|Import                       |
+|nl.hsac.fitnesse.fixture     |
+|nl.hsac.fitnesse.fixture.slim|
+
+|script |execute program test |
+|execute|..\killwebdrivers.bat|
+|show   |exit code            |
+|show   |standard out         |
+|show   |standard error       |

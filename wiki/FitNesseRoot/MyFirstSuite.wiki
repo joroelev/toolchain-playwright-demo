@@ -1,0 +1,39 @@
+---
+Help: My first test suite (this is the help text, edit by clicking Edit)
+Suites: this is a tag, you can add, and remove, by clicking edit
+---
+!2 Welcome home
+This is an example suite with a lot of documentation. This suite aims to exmplain the basic concepts of using the FitNesse frontend. For extended documentation, you can take a look at the following links;
+ * .FitNesse.UserGuide
+ * .HsacAcceptanceTests
+ * .HsacExamples
+!3 First things first
+The table of contents. Here you'll see pages that are part of this MyFirstSuite. Please note that HsacExamples and HsacAcceptanceTests are actually symbolic links to those respective suites and included here, as they are a very important part of the documentation. To exit symbolic links, click Tools>Properties.
+!contents -R2 -g -p -f -h
+
+
+For a flying start, a few basics for FitNesse and the fixtures behind it need to be set.
+
+!4 1 Fixture location
+As the first step, we will make sure FitNesse can find it's fixtures. The fixtures contain all the working code to talk to API's, files, Selenium and so on. Without setting that, FitNesse hasn't got a clue where to find the functions you're trying to execute. You can extend this later, if you start adding your own fixtures, or even set it specifically for a bunch of Test Pages or Suites.
+The classpath location when working standalone:
+!path fixtures
+!path fixtures/*.jar
+When developing and changing the fixtures and we work from Maven, we will work based on the pom.xml. Obviously if you are running a standalone version, this will create an error. You can comment this line or remove it in that case. Commenting works by adding a !-#-! in front of it. Removing it, well, that requires no explanation.
+!***> Pomfile, in case of maven. It's collapsed because in case of maven, this might become a loooong list.
+!pomFile ../pom.xml@compile
+*!
+!4 2 Setting the Test System to use
+Now that's out of the way, we have a 2nd thing to do.
+
+As the second step, we set the test system. FitNesse has two ways of talking to your SUT (System Under Test), one is via the Fit route (explained in detail in the .FitNesse.UserGuide). The other one is via the SLIM route. SLIM is what most of the HSAC fixtures use. To configure this properly for all underlying pages, we will define it here. Details about this are also in the .FitNesse.UserGuide.
+
+!define TEST_SYSTEM {slim}
+And of course, to view the contents of this suite, we will add the contents, if you click Edit (or press E on your keyboard), you'll see a line like{{{!contents -R2 -g -p -f -h}}}For more details about the configuration of your Table of Contents, consult the .FitNesse.UserGuide.
+
+Let's move on to the test suites that are already here. Select a page from the table of contents below.
+
+Oh look, there's two more defines below here;
+!define COLLAPSE_SETUP {true}
+!define COLLAPSE_TEARDOWN {true}
+We use these to make sure that when running a test, the suitesetup/setup/suiteteardown/teardown don't expand and fill most of the page, so you're test results are more visible.

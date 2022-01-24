@@ -1,0 +1,18 @@
+!2 Toolchain fixture documentatie/voorbeelden
+
+!contents -R2 -g -p -f -h
+
+!2 HSAC Docs
+
+!see .HsacExamples
+!see .HsacAcceptanceTests
+
+!2 FitNesse Docs
+
+!see .FitNesse
+
+!*> Global Config
+!define TEST_SYSTEM {slim}
+!path fixtures/
+!path fixtures/*.jar
+*!

@@ -1,0 +1,45 @@
+!3 Management summary:
+To run Allure reports from Jenkins and save history:
+
+ * create a Jenkins Maven job
+ * Run: clean test-compile failsafe:integration-test failsafe:verify -Dfolder= -DfitnesseSuiteToRun=MyFirstSuite.VersionCheck -Pallure
+ * Then as post-build step run: site -Pallure
+ 
+If site -Pallure has been run before, an Allure report exists. The history and trends from the previous report will be copied to the new report. If you clear your Jenkins workspace, you'll lose these too.
+
+To run combined FitNesse reports, make sure the FitNesse results are in their own subfolder, add: -DfitnesseResultsDir=target/fitnesse-results/<folder> to your maven command.
+
+Combining Allure and combined FitNesse reports is possible, but requires changes in the pom.xml file.
+
+!2 Running from the commandline (or build server)
+!3 Base command
+
+ * ''mvn test-compile failsafe:integrationtest''
+
+test execution can be configured using systemproperties and maven settings:
+
+!4 System properties
+ * Set system propertys using the -D flag
+ * For example !style_code[-DmyProperty=someValue] or !style_code[-DsomeProperty="value of the property"]
+
+The following properties can be used to configure testing:
+
+|'''Property'''                 |'''Example value'''                                                       |                                                                                                                               |
+|'''''Suite configuration'''''                                                                                                                                                                                                             |
+|fitnesseSuiteToRun             |!-MyProject.Environment.TestCases.Tests-!                                 |The wiki-path to the  suite or test to run                                                                                     |
+|suiteFilter                    |regression (or comma separated: regression,smoke)                         |A comma-separated list of tags to run                                                                                          |
+|excludeSuiteFilter             |smoke (or bug,disabled)                                                   |A comma-separated lijst van tags to exclude                                                                                    |
+|suiteFilterStrategy            |and (AND or OR. Default: OR)                                              |Toggle to read the suiteFilter list of tags as AND or OR                                                                       |
+|'''''Browser configuration'''''|The selenium driver setup can be overridden when running from the command-line                                                                                                                            |
+|seleniumGridUrl                |http://localhost:4444/wd/hub                                              |The selenium grid hub endpoint                                                                                                 |
+|seleniumBrowser                |chrome                                                                    |The browser to use. Shorthand when only the browserName capability is needed                                                   |
+|seleniumCapabilities           |browserName:chrome, version:61, platform=LINUX                            |A comma-separated list of capablities                                                                                          |
+|seleniumJsonCapabilities       |{"browserName":"chrome", "args":["headless", "disable-gpu", "lang=en_EN"]}|A json object containing the seleniumconfiguration.                                                                            |
+|'''''Maven options'''''        |These are NOT systemproperties                                                                                                                                                                            |
+|clean                          |''mvn clean test-compile....''                                            |Empty the target directory, clean fixtures and results while preserving allure history                                         |
+|failsafe:verify                |''mvn test-compile failsafe:integration-test failsafe-verify ....''       |Tell maven to fail the build when there are failing tests                                                                      |
+|-Pprofile                      |''mvn test-compile failsafe:integrationtest -Pallure''                    |Executes a profile that is defined in pom.xml                                                                                  |
+|site                           |''mvn test-compile failsafe:integrationtest site -Pallure''               |Generate a HTML dashboard. Can be executed separately to combine results of multiple runs. Used with Allure (mvn site -Pallure)|
+
+
+More info on using tags to filter suites: .HsacExamples.TaggedTestcases

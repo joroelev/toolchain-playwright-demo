@@ -1,0 +1,26 @@
+---
+Help: Page types, templates and more
+---
+!2 Page Types
+FitNesse supports three types of page types. A Suite Page, Test Page and Static Page. A few page names are special.
+
+The special page types are:
+For FitNesse:
+* !-PageFooter-!
+* !-PageHeader-!
+* !-TemplateLibrary-!
+
+For Testing:
+* !-ScenarioLibrary-!
+* !-SuiteSetUp-!
+* !-SuiteTearDown-!
+* !-SetUp-!
+* !-TearDown-!
+
+More information about page types: .FitNesse.FullReferenceGuide.UserGuide.WritingAcceptanceTests.SpecialPages
+
+Just remember, if naming a page in a manner as above, it'll immediately serve a special purpose.
+
+HSAC fixtures documentation (also includes CI/CD integration info):
+.HsacExamples
+.HsacAcceptanceTests

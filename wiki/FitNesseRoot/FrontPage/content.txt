@@ -1,0 +1,20 @@
+!img-l -m 20 -w 64 http://files/praeguslogo_small.png 
+!1 Welcome to (the) Toolchain!
+
+
+An example of a place to start: WebTest
+----
+
+|'''Documentatie'''                                                                                          |
+|[[Toolchain User Guide][MyFirstSuite]]                        |''Toolchain docs''                           |
+|[[HSAC Fixtures][HsacExamples]]                               |''HSAC Documentatie''                        |
+|[[FitNesse User Guide][.FitNesse.UserGuide]]                  |''FitNesse User Guide''                      |
+|[[A Two-Minute Example][.FitNesse.UserGuide.TwoMinuteExample]]|''Korte introductie !-FitNesse-!.''          |
+|[[Acceptance Tests][.FitNesse.SuiteAcceptanceTests]]          |''FitNesse's Acceptatie Tests''              |
+|[[Release Notes][.FitNesse.ReleaseNotes]]                     |''Check de laatste wijzigingen aan FitNesse''|
+
+!3 Need extra support? 
+!5 Go to https://online.praegusacademy.nl/ for courses (Dutch only) and support (English and Dutch).
+
+
+!note Release ${FITNESSE_VERSION}

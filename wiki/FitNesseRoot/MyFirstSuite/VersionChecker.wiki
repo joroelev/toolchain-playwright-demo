@@ -1,0 +1,10 @@
+---
+Suite
+---
+!2 Version checker, it's in a suite, because results are better to manage in Jenkins
+
+!5 Setup
+Define for Jenkins, because Jenkins homefolder is different than local homefolder. If using Jenkins, add "-Dfooolder=". Note that it's empty, that's by design.
+!defineDefault folder {/..}
+
+!contents -R2 -g -f -h

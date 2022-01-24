@@ -1,0 +1,55 @@
+---
+Test
+---
+!**> Setting up the test
+Loading the POM file, using a FitNesse variable !-${user.dir}-!, adding the previously defined fooolder variable. When running from Jenkins, the folder for !-${user.dir}-! already contains the POM. When running locally, it's one directory below. The script also stores the URL to artifact versions.
+|script                            |xml fixture                                         |
+|load file                         |${user.dir}${folder}/pom.xml                        |
+|register prefix for               |pom     |namespace|http://maven.apache.org/POM/4.0.0|
+|$pomfitnesseversion=              |xPath   |//pom:fitnesse.version                     |
+|$pomhsacversion=                  |xPath   |//pom:hsac.fixtures.version                |
+|$pomtoolchainfixturesversion=     |xPath   |//pom:toolchain.fixtures.version           |
+|$pomtoolchainpluginversion=       |xPath   |//pom:toolchain-plugin.version             |
+|$pomallureversion=                |xPath   |//pom:allure.version                       |
+|$pomalluremavenversion=           |xPath   |//pom:allure.maven.version                 |
+|$pomallurefitnesselistenerversion=|xPath   |//pom:allure.fitnesse.listener             |
+|                                  |$pompdf=|xPath    |//pom:hsac.fitnesse.pdf.version  |
+
+Browser config
+|script                                |
+|push fixture                          |
+|start           |selenium driver setup|
+|start driver for|!-MicrosoftEdge-!    |
+|pop fixture                           |
+
+|script                                                                                                            |
+|Find maven version|$hsacversion=                  |for artifact|hsac-fitnesse-fixtures   |by web                  |
+|Find maven version|$fitnesseversion=              |for artifact|fitnesse                 |by web                  |
+|Find maven version|$toolchainfixturesversion=     |for artifact|toolchain-fixtures       |by web                  |
+|Find maven version|$alluremavenversion=           |for artifact|allure-maven             |by web                  |
+|Find maven version|$allurefitnesselistenerversion=|for artifact|allure-fitnesse-listener |by web                  |
+|Find maven version|$toolchainpluginversion=       |for artifact|toolchain-fitnesse-plugin|by web                  |
+|                  |Find maven version             |$pdfversion=|for artifact             |hsac-fitnesse-pdf|by web|
+
+Separate script for allure-commandline due to it being a dependency
+|script         |string fixture                                                                             |
+|push fixture                                                                                               |
+|start          |browser test                                                                               |
+|open           |https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/maven-metadata.xml|
+|$allureversion=|value of              |xpath=//*[text()[contains(.,'latest')]]/following::*[1]             |
+|pop fixture                                                                                                |
+*!
+|script                                                                         |
+|check|value of|$hsacversion                  |$pomhsacversion                  |
+|check|value of|$fitnesseversion              |$pomfitnesseversion              |
+|check|value of|$toolchainfixturesversion     |$pomtoolchainfixturesversion     |
+|check|value of|$toolchainpluginversion       |$pomtoolchainpluginversion       |
+|check|value of|$alluremavenversion           |$pomalluremavenversion           |
+|check|value of|$allureversion                |$pomallureversion                |
+|check|value of|$allurefitnesselistenerversion|$pomallurefitnesselistenerversion|
+|     |check   |value of                      |$pdfversion       |$pompdf       |
+
+!**> Cleanup browser
+|script|selenium driver setup|
+|stop driver                 |
+*!

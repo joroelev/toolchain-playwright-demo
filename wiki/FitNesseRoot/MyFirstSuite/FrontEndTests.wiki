@@ -1,0 +1,8 @@
+---
+Help: Suite for tests on using a browser (with Selenium)
+Suite
+Suites: I am a tag
+---
+!contents -R2 -g -p -f -h
+
+Samples for testing a web application can be found at .HsacExamples.SlimTests.BrowserTests.

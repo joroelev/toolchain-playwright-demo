@@ -1,0 +1,57 @@
+---
+Help: This page contains reusable scenarios, take a look inside to see how they work
+Static
+---
+!4 Hello! I am your ScenarioLibrary
+
+If you open a test page that is below my level in FitNesse or besides me, you will see I am automatically included. This is the default behavior when TEST_SYSTEM is set to SLIM.
+
+This is useful, because here you can create scenario's that can be reused in all the tests around me. I would recommend starting with small steps, like a general log in scenario that you can use everywhere.
+
+However, scenario's can also be extended for more complex uses. One of them being continuous execution of one scenario.
+
+!4 Examples
+First, a basic scenario and script is written like this: name(method), variable/input/output, name(method) again and so on. For a scenario you'd be able to do something like:
+
+|scenario|Log in with|username|and|password|
+
+Because you start with the word Scenario, FitNesse knows it's going to be a reusable scenario. Oh and yes, you can create scenarios even within a test page itself. It just wouldn't be reusable somewhere else.
+
+Now to complete the scenario...
+
+!note this is based on a Selenium/web test, for api's like XML or Json tests, you'll have to use their own syntax. 
+
+|scenario|Log in with|username|and|password|
+|enter   |@username  |as      |User        |
+|enter   |@password  |as      |password    |
+|click   |Log me in!                       |
+
+FitNesse within scenario's finds the @username and @password. So when you use this scenario as part of a script:
+
+-|comment                  |
+|script     |browser test |
+|Log in with|Fit|and|Nesse|
+
+FitNesse will transport the Fit and Nesse as username and password within the scenario. Now you'll notice that I've commented this script, otherwise it'll start actually executing in the scenario library, usually not something you'd want.
+
+!4 More examples
+'''Scenario'''
+-|comment|
+|scenario|do something|''here''|and|''there''|
+|click   |@{here}                            |
+|click   |@{there}                           |
+
+'''Scenario in script'''
+-|comment|
+|script                                          |
+|do something|''with this''|and|''at this place''|
+
+'''Effect within a script'''
+-|comment|
+|script                                                                                                   |
+|do something|with this                   |and         |at this place                                     |
+|!(|scenario                    |do something|here > ''with this''|and|there > ''at this place''|
+|click       |@{here} > ''with this''                                                                     |
+|click       |@{there} > ''at this place''|)!                                                             |
+
+Note that scenarios just work using text replacement. It notes you have used @{here} and the same word in a column in the title, which makes FitNesse replace the @{here}.

@@ -1,0 +1,10 @@
+The configuration of Selenium (i.e. which browser to use) and starting the browser session is done in the SuiteSetup. Which allows this configuration to be shared between tests. Closing the browser is done in SuiteTearDown, which happens after all tests are completed.
+
+|storyboard            |browser test                                |
+|screenshot show height|600                                         |
+|open                  |file:///C:/Users/Tom/Desktop/test.html      |
+|set search context to |id=deflinepanel2P                           |
+|enter                 |Regel 2|as|Rekeningcode                     |
+|enter                 |BLA    |as|Omschrijving                     |
+|clear search context                                               |
+|enter                 |Regel 1|as|Rekeningcode|in|id=deflinepanel1P|

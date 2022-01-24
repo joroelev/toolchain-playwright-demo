@@ -1,0 +1,102 @@
+---
+Help: Fixture om gebruik te maken van de GMail API voor mail
+Test
+---
+!2 !-GMail OAuth Fixture-!
+!style_error ('''''Let op: Gebruik NOOIT persoonlijke of organisatie-mailaccounts om mee te testen! Met de client_secret en de credential file heeft een gebruiker volledige toegang tot het e-mail account.''''')
+
+Met de Gmail oauth fixture kan e-mail worden opgehaald en verzonden. 
+Om te kunnen werken met een bericht moet altijd eerst het gewenste bericht zijn opgehaald. Gebruik daarvoor de poll instellingen en de poll until message arrives-instructie.
+Configuratie van het account is onder de instructietabel beschreven.
+
+!4 Fixture instructies:
+
+-|comment                                                                                                                             |
+|# '''Constructor'''                                                                                                                                                                  |
+|gmail oauth fixture                     |APP NAAM                                                                                                                                    |
+|# '''Geef een account-postfix op (bij meerdere accounts)'''                                                                                                                          |
+|set client secret postfix               |postfix                                                                                                                                     |
+|# '''Polling instelling'''                                                                                                                                                           |
+|set repeat interval to                  |1000                                                                          |milliseconds                                                 |
+|repeat at most                          |30                                                                            |times                                                        |
+|# '''Berichtformaat (html of plain)'''                                                                                                                                               |
+|set message format                      |html                                                                                                                                        |
+|# '''Instellen filter - werkt gelijk aan de zoekbalk in Gmail'''                                                                                                                     |
+|set filter query                        |in:inbox subject:onderwerp has:attachment larger:2M after:!today (yyyy/MM/dd) -1 before:!today (yyyy/MM/dd) +1                              |
+|# '''Voer query uit'''                                                                                                                                                               |
+|poll until message arrives                                                                                                                                                           |
+|# '''Check dat laatste bericht een bepaalde string bevat'''                                                                                                                          |
+|ensure                                  |latest message body contains                                                  |zoek string                                                  |
+|# '''Haal lijstje attachments op (bestandsnamen)'''                                                                                                                                  |
+|show                                    |latest message attachments                                                                                                                  |
+|# '''Bericht opslaan en link ernaartoe tonen'''                                                                                                                                      |
+|show                                    |save latest email body                                                        |filename                                                     |
+|# '''Link ophalen met daarin de meegegeven zoekstring'''                                                                                                                             |
+|$link=                                  |get link containing                                                           |zoekstring                                                   |
+|# '''Bericht permanent verwijderen (delete) of verplaatsen naar de prullenbak (trash)'''                                                                                             |
+|delete current message                                                                                                                                                               |
+|trash current message                                                                                                                                                                |
+|# '''Verzenden van berichten'''                                                                                                                                                      |
+|send email                              |$emailMessage                                                                                                                               |
+|send email                              |$emailMessageWithAttachment                                                                                                                 |
+|# '''Het bericht kan worden geconfigureerd dmv een map. Zie hieronder een inline voorbeeld en de tabellen daaronder voor voorbeelden van de maps waarnaar hierboven wordt verwezen'''|
+|!{to:!-test@mail.com-!, from:!-me@mail.com-!, subject: Testbericht, body: email body text, attachment: http://files/my-attachment.pdf}                                               |
+
+!*> Map fixture voor mail-map configuratie
+-|comment|
+|script        |map fixture                                |
+|set value     |!-tom.heintzberger@praegus.nl-!|for|to     |
+|set value     |!-praegussolutions@gmail.com-! |for|from   |
+|set value     |Mail uit je test               |for|subject|
+|set value     |Hello from fitnesse            |for|body   |
+|$emailMessage=|copy map                                   |
+
+-|comment|
+|script                      |map fixture                                                          |
+|set value                   |!-tom.heintzberger@praegus.nl-!                       |for|to        |
+|set value                   |!-praegussolutions@gmail.com-!                        |for|from      |
+|set value                   |mail met een bestand erbij                            |for|subject   |
+|set value                   |look at that image!                                   |for|body      |
+|set value                   |http://files/compare_examples/praegus_screenshot_a.png|for|attachment|
+|$emailMessageWithAttachment=|copy map                                                             |
+*!
+
+!3 Configuratie van het Google-Account
+
+ * Ga naar ''https://console.developers.google.com/cloud-resource-manager''
+ * Log in met het google account dat je wil gebruiken
+ * Maak een nieuw project met een herkenbare naam (bijvoorbeeld toolchain-fixture)
+ * Ga naar ''https://console.developers.google.com/apis/dashboard''
+ * ontroleer dat linksboven het juiste project is geselecteerd
+ * Kies Gmail API
+ * Kies inschakelen
+ * Een melding over inloggegevens verschijnt. Klik op de knop inloggegevens maken
+ * Vul de pagina als volgt in:
+   * Welke api: Gmail
+   * Waarvandaan: Andere UI
+   * Toegang gegevens: Gebruikers gegevens
+   * Klik dan op de knop “Welke gegevns heb ik nodig?”
+ * Vul in:
+   * Naam: fitnesse (als je een andere naam kiest, pas dit dan aan in het activatiescript onderaan deze pagina)
+ * Klik op de knop om de sleutel aan te maken
+ * Download de sleutel (json bestand) en sla deze op in ''src/main/resources'' in je FitNesse project met bestandsnaam: ''gmail_client_secret.json''
+ * Herstart nu fitnesse en voer deze pagina uit (TEST)
+ * Er opent nu een nieuwe browser tab/scherm waarin google vraagt de applicatie te autoriseren. Doorloop deze stappen om de toegang tot het account toe te staan.
+   * In ''wiki/files/gmailOauthFixture'' is nu een credential toegevoegd. Deze credential en de hmail_client_secret.json moeten worden gecommit om ook in een CI run met gmail te kunnen werken.
+
+!4 Meerdere accounts gebruiken:
+
+Volg voor meerdere accounts de stappen hierboven. 
+Bij het opslaan van ''gmail_client_secret.json'', gebruik je nu echter bestandsnaam ''gmail_client_fixture_[postfix].json'', waar [postfix] een voor jou herkenbare identificatie van het gebruikte account is. 
+Om dit account te gebruiken, geef je in de gmail oauth fixture tabel de instructie:
+
+|comment                          |
+|set client secret postfix|postfix|
+
+Let op dat de eerste keer testen weer op een lokale instance moet gebeuren om het oauth toestemmingsscherm te doorlopen.
+
+!*> Activatie-script Gmail via Oauth
+|script                    |gmail oauth fixture|fitnesse|
+|#set client secret postfix|postfix                     |
+
+*!

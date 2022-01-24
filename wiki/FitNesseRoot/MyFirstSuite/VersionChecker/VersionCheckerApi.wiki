@@ -1,0 +1,40 @@
+---
+Test
+---
+!**> Setting up the test
+Loading the POM file, using a FitNesse variable !-${user.dir}-!, adding the previously defined fooolder variable. When running from Jenkins, the folder for !-${user.dir}-! already contains the POM. When running locally, it's one directory below. The script also stores the URL to artifact versions.
+|script                            |xml fixture                                         |
+|load file                         |${user.dir}${folder}/pom.xml                        |
+|register prefix for               |pom     |namespace|http://maven.apache.org/POM/4.0.0|
+|$pomfitnesseversion=              |xPath   |//pom:fitnesse.version                     |
+|$pomhsacversion=                  |xPath   |//pom:hsac.fixtures.version                |
+|$pomtoolchainpluginversion=       |xPath   |//pom:toolchain-plugin.version             |
+|$pomallureversion=                |xPath   |//pom:allure.version                       |
+|$pomalluremavenversion=           |xPath   |//pom:allure.maven.version                 |
+|$pomallurefitnesselistenerversion=|xPath   |//pom:allure.fitnesse.listener             |
+|$pomtoolchainfixturesversion=     |xPath   |//pom:toolchain.fixtures.version           |
+|                                  |$pompdf=|xPath    |//pom:hsac.fitnesse.pdf          |
+
+|script                                                                                                            |
+|Find maven version|$hsacversion=                  |for artifact|hsac-fitnesse-fixtures   |by api                  |
+|Find maven version|$fitnesseversion=              |for artifact|fitnesse                 |by api                  |
+|Find maven version|$toolchainfixturesversion=     |for artifact|toolchain-fixtures       |by api                  |
+|Find maven version|$alluremavenversion=           |for artifact|allure-maven             |by api                  |
+|Find maven version|$allurefitnesselistenerversion=|for artifact|allure-fitnesse-listener |by api                  |
+|Find maven version|$toolchainpluginversion=       |for artifact|toolchain-fitnesse-plugin|by api                  |
+|                  |Find maven version             |$pdfversion=|for artifact             |hsac-fitnesse-pdf|by api|
+
+Allure report isn't in the maven repository, which is why the versionchecker has to be done differently
+|script         |json http test                                                       |
+|get from       |https://api.github.com/repos/allure-framework/allure2/releases/latest|
+|$allureversion=|json path                          |tag_name                         |
+*!
+|script                                                                         |
+|check|value of|$hsacversion                  |$pomhsacversion                  |
+|check|value of|$fitnesseversion              |$pomfitnesseversion              |
+|check|value of|$toolchainpluginversion       |$pomtoolchainpluginversion       |
+|check|value of|$toolchainfixturesversion     |$pomtoolchainfixturesversion     |
+|check|value of|$alluremavenversion           |$pomalluremavenversion           |
+|check|value of|$allureversion                |$pomallureversion                |
+|check|value of|$allurefitnesselistenerversion|$pomallurefitnesselistenerversion|
+|     |check   |value of                      |$pdfversion       |$pompdf       |

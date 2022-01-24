@@ -1,0 +1,13 @@
+---
+Test
+---
+|script          |excel file fixture                 |
+|open excel sheet|testje.xlsx                        |
+|show            |value in row|2     |column|2       |
+|write           |new         |to row|2     |column|2|
+|show            |value in row|2     |column|2       |
+
+|script                                                             |
+|show |value in row|1     |column|0     |in sheet|klantinfo         |
+|write|Piet        |to row|1     |column|0       |in sheet|klantinfo|
+|show |value in row|1     |column|0     |in sheet|klantinfo         |

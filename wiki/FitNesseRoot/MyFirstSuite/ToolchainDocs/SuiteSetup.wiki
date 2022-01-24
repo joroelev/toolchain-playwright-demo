@@ -1,0 +1,15 @@
+---
+Suite: no
+---
+!*> Config
+
+|Import                                |
+|nl.hsac.fitnesse.fixture              |
+|nl.hsac.fitnesse.fixture.slim         |
+|nl.praegus.fitnesse.slim.fixtures     |
+|nl.praegus.fitnesse.slim.fixtures.util|
+
+|Library           |
+|String fixture    |
+|Pause test fixture|
+*!

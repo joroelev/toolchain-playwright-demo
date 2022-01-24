@@ -1,0 +1,24 @@
+Scenario to figure out the url to the Maven repo for artifact and get the latest version. This scenario reads the groupId for a specific artifact, then translates uses the groupId to form an URL for a Maven artifact.
+
+|scenario  |Find maven version|version        |for artifact        |artifact         |by api                |
+|$location=|xPath             |//pom:artifactId[text()='@{artifact}']/preceding-sibling::pom:groupId/text() |
+|$location=|replace all       |\.             |in                  |$location        |with        |/        |
+|$location=|value of          |https://repo.maven.apache.org/maven2/$location/@{artifact}/maven-metadata.xml|
+|push fixture                                                                                               |
+|start     |xml http test                                                                                   |
+|get from  |$location                                                                                       |
+|@{version}|xPath             |//latest                                                                     |
+|pop fixture                                                                                                |
+
+Scenario to figure out the url to the Maven repo for artifact and get the latest version. This scenario reads the groupId for a specific artifact, then translates uses the groupId to form an URL for a Maven artifact.
+
+|scenario              |Find maven version|version        |for artifact        |artifact         |by web                |
+|$location=            |xPath             |//pom:artifactId[text()='@{artifact}']/preceding-sibling::pom:groupId/text() |
+|$location=            |replace all       |\.             |in                  |$location        |with        |/        |
+|$location=            |value of          |https://repo.maven.apache.org/maven2/$location/@{artifact}/maven-metadata.xml|
+|push fixture                                                                                                           |
+|start                 |browser test                                                                                    |
+|seconds before timeout|2                                                                                               |
+|open                  |$location                                                                                       |
+|@{version}            |value of          |xpath=//*[text()[contains(.,'latest')]]/following::*[1]                      |
+|pop fixture                                                                                                            |

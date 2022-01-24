@@ -1,0 +1,6 @@
+---
+Test
+---
+|script|pdf compare                                                                                     |
+|compare|http://files/compare_examples/version1.pdf|to|http://files/compare_examples/version2.pdf|
+|show|difference pdf |

@@ -1,0 +1,8 @@
+|import                                      |
+|nl.hsac.fitnesse.fixture.slim               |
+|nl.hsac.fitnesse.fixture.slim.web           |
+|nl.praegus.fitnesse.slim.fixtures           |
+|nl.praegus.fitnesse.slim.fixtures.util      |
+
+|library                                |
+|string fixture                     |

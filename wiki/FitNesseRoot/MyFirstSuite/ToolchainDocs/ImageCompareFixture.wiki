@@ -1,0 +1,24 @@
+---
+Test
+---
+!2 Image compare fixture
+
+Met image compare fixture is het mogelijk screenshots te vergelijken met een baseline.
+Ook kan een fouttolerantie worden meegegeven aan de vergelijking en een percentage afwijking dat mag worden geaccepteerd.
+
+|script                            |image compare fixture                                                                                                                        |
+|# '''Toon de verschillen tussen 2 afbeeldingen (heatmap)'''                                                                                                                     |
+|show                              |differences between|http://files/compare_examples/praegus_screenshot_a.png|and        |http://files/compare_examples/praegus_screenshot_c.png|
+|# '''Stel vast dat de afbeeldingen niet gelijk zijn - Er is een verschuiving'''                                                                                                 |
+|reject                            |image              |http://files/compare_examples/praegus_screenshot_a.png|is equal to|http://files/compare_examples/praegus_screenshot_c.png|
+|# '''Hogere tolerantie geeft een kleinere afwijking'''                                                                                                                          |
+|set tolerance                     |40                                                                                                                                           |
+|# '''Een maximale afwijking instellen (in procenten) die nog wordt gezien als gelijkwaardig'''                                                                                  |
+|set accepted difference percentage|30                                                                                                                                           |
+|# '''De heatmap met hoge tolerantie'''                                                                                                                                          |
+|show                              |differences between|http://files/compare_examples/praegus_screenshot_a.png|and        |http://files/compare_examples/praegus_screenshot_c.png|
+|# '''Nu zijn afbeeldingen wel gelijkwaardig'''                                                                                                                                  |
+|ensure                            |image              |http://files/compare_examples/praegus_screenshot_a.png|is equal to|http://files/compare_examples/praegus_screenshot_c.png|
+|#  '''Een screenshot van een andere pagina wordt echter nog altijd niet beoordeeld als gelijkwaardig'''                                                                         |
+|reject                            |image              |http://files/compare_examples/praegus_screenshot_a.png|is equal to|http://files/compare_examples/praegus_screenshot_d.png|
+|show                              |differences between|http://files/compare_examples/praegus_screenshot_a.png|and        |http://files/compare_examples/praegus_screenshot_d.png|
