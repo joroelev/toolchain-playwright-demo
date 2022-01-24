@@ -1,0 +1,4 @@
+!3 Stop the browser and Playwright
+|script  |$setup |
+|close browser   |
+|close playwright|

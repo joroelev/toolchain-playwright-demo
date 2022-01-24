@@ -1,5 +1,5 @@
 !contents -R1
-!define TEST_SYSTEM {slim}
-!path fixtures
-!path fixtures/*.jar
-!define COMMAND_PATTERN {java -cp fitnesse-standalone.jar;fixturs;fixtures/*; %m}
+#!define TEST_SYSTEM {slim}
+#!path fixtures
+#!path fixtures/*.jar
+#!define COMMAND_PATTERN {java -cp fitnesse-standalone.jar;fixturs;fixtures/*; %m}

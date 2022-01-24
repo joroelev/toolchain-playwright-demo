@@ -1,9 +1,11 @@
 !img-l -m 20 -w 64 http://files/praeguslogo_small.png 
-!1 Welcome to (the) Toolchain!
 
+!1 Welcome to the Toolchain Playwright Demo!
 
-An example of a place to start: WebTest
-----
+!img -h 200 -w 200 http://files/playwright-logo.svg
+
+!3 https://playwright.dev/
+
 
 |'''Documentatie'''                                                                                          |
 |[[Toolchain User Guide][MyFirstSuite]]                        |''Toolchain docs''                           |
@@ -15,6 +17,5 @@ An example of a place to start: WebTest
 
 !3 Need extra support? 
 !5 Go to https://online.praegusacademy.nl/ for courses (Dutch only) and support (English and Dutch).
-
 
 !note Release ${FITNESSE_VERSION}

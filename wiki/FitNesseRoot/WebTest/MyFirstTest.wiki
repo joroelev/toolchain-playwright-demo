@@ -1,2 +1,0 @@
-|script               |
-|show|echo|hello world|

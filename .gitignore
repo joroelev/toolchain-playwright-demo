@@ -39,3 +39,4 @@ wiki/FitNesseRoot/*.zip
 .classpath
 wiki/FitNesseRoot/RerunLastFailures*
 .vscode/settings.json
+/wiki/FitNesseRoot/files/defaults.properties

@@ -1,7 +1,0 @@
-!3 !-SetUp-! is executed per test
-
-Here, we instantiate the !-WebBrowser-! fixture, an extension to the !-BrowserTest-! fixture set the browser window to a maximized state and open the desired URL
-
-|script     |web browser    |
-|set browser size to maximum|
-|open       |some url       |

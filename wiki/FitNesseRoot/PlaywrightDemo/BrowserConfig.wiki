@@ -1,0 +1,37 @@
+!3 Configure browser to use
+#Use CHROMIUM, FIREFOX or WEBKIT as browser
+!defineDefault browser     {CHROMIUM}
+#!defineDefault browser     {FIREFOX}
+#!defineDefault browser     {WEBKIT}
+
+!3 Configure to run headless or not
+!defineDefault headless    {false}
+
+!3 Configure browser characteristics
+!defineDefault width       {375}
+!defineDefault height      {667}
+!defineDefault scaleFactor {1}
+
+!3 Define cookies if needed
+# Set cookie to prevent cookie consent popup
+!|ddt                :map fixture                                                             |
+|name                |value  |expires         |domain    |path|sameSite|cookie?               |
+|CookiePermissionInfo|go-away|2021-12-31 00:00|.postnl.nl|/   |LAX     |$cookiePermissionInfo=|
+|Language            |nl     |2021-12-31 00:00|.postnl.nl|/   |LAX     |$languageCookieNL=    |
+
+!3 Start browser with configured settings
+!|script                |playwright setup             |
+|set headless           |${headless}                  |
+|set viewport width     |${width}|and height|${height}|
+|set device scale factor|${scaleFactor}               |
+|start browser          |${browser}                   |
+|$setup=                |get fixture                  |
+
+!3 Now start playwright and do some basic configuration
+Instantiating new playwright fixture with a new browser context en page object.
+
+|script     |playwright fixture   |
+|set timeout|10000                |
+|set cookie |$cookiePermissionInfo|
+|$browser=  |get fixture          |
+

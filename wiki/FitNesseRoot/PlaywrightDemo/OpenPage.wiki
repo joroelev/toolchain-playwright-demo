@@ -1,0 +1,21 @@
+---
+Test
+---
+|script                       |$browser                                    |
+|navigate to                  |${oktaUrl}                                  |
+|enter                        |${oktaUser}        |as|#okta-signin-username|
+|enter                        |${oktaPass}        |as|#okta-signin-password|
+|click and wait for navigation|#okta-signin-submit                         |
+|$totp=                       |get totp for secret|${oktaKey}              |
+|enter                        |$totp              |as|[name="answer"]      |
+|click and wait for navigation|text="Verify"                               |
+|save storage state                                                        |
+
+|close page                                                                |
+|close context                                                             |
+
+|script                                  |
+|open|${oktaUrl}|with saved storage state|
+
+|script|
+|pause |

@@ -1,0 +1,19 @@
+The !-SuiteSetUp-! will run before any suite (or before a test in a suite is executed). If a suite containing multiple tests is run, the !-SuiteSetUp-! will only run once.
+
+!*> Fixture imports
+!4 This tells Slim which packages contain the test fixtures we'd like to use
+
+|Import                                          |
+|nl.hsac.fitnesse.fixture                        |
+|nl.hsac.fitnesse.fixture.slim                   |
+|nl.hsac.fitnesse.fixture.slim.web               |
+|nl.praegus.fitnesse.slim.fixtures               |
+|nl.praegus.fitnesse.slim.fixtures.totp          |
+|nl.praegus.fitnesse.slim.fixtures.web.playwright|
+
+!4 Fixtures defined as a library can be used anywhere in a script- or scenario table, without explicitly instantiating them.
+|Library     |
+|totp fixture|
+*!
+
+!include -c BrowserConfig
