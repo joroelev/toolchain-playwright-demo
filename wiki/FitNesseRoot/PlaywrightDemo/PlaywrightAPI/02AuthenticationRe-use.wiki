@@ -1,0 +1,26 @@
+---
+Test
+---
+!3 Login and save the logged in state
+|script     |$browser                                                                                       |
+|navigate to|${oktaUrl}                                                                                     |
+|enter      |${oktaUser}                                      |as           |#okta-signin-username          |
+|enter      |${oktaPass}                                      |as           |#okta-signin-password          |
+|click      |#okta-signin-submit                                                                            |
+|enter      |$totp                                            |as           |[name="answer"]                |
+|click      |text="Verify"                                                                                  |
+|assert that|ul.app-buttons-list.clearfix.ui-sortable > li > p|has text     |Orangebeard                    |
+|assert that|ul.app-buttons-list.clearfix.ui-sortable > li > p|has attribute|oldtitle|with value|Orangebeard|
+|save storage state                                                                                         |
+|close context                                                                                              |
+
+!3 Open some other site
+!|script                    |
+|open new context           |
+|open|https://www.praegus.nl|
+|close context              |
+
+!3 Open a new browser context with the saved state. No login needed!
+|script                                         |
+|open |${oktaUrl}   |with saved storage state   |
+|wait for |10 | seconds |

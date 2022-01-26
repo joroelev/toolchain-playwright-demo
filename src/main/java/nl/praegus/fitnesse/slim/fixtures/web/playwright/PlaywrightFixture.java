@@ -1,6 +1,7 @@
 package nl.praegus.fitnesse.slim.fixtures.web.playwright;
 
 import com.microsoft.playwright.*;
+import com.microsoft.playwright.assertions.LocatorAssertions;
 import com.microsoft.playwright.options.LoadState;
 import com.microsoft.playwright.options.SelectOption;
 import com.microsoft.playwright.options.WaitForSelectorState;
@@ -16,13 +17,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
 public class PlaywrightFixture extends SlimFixture {
     private final Browser browser = PlaywrightSetup.getBrowser();
+    private final String fitNesseFilesSectionDir = getEnvironment().getFitNesseFilesSectionDir();
     private BrowserContext browserContext = browser.newContext(PlaywrightSetup.getNewContextOptions());
     private final CookieManager cookieManager = new CookieManager();
     private Page currentPage = browserContext.newPage();
-    private final File screenshotFolder = new File(getEnvironment().getFitNesseFilesSectionDir(), "screenshots");
-    private final File tracesFolder = new File(getEnvironment().getFitNesseFilesSectionDir(), "traces");
+    private final File screenshotFolder = new File(fitNesseFilesSectionDir, "screenshots");
+    private final File tracesFolder = new File(fitNesseFilesSectionDir, "traces");
+    private final File storageStateFolder = new File(fitNesseFilesSectionDir, "storageState");
     private String storageState;
     private Double timeout;
 
@@ -48,9 +53,21 @@ public class PlaywrightFixture extends SlimFixture {
         browserContext.setDefaultTimeout(timeout);
     }
 
+    public void assertThatHasText(String selector, String text) {
+        assertThat(getLocator(selector)).hasText(text);
+    }
+
+    public void assertThatHasAttributeWithValue(String selector, String attr, String value) {
+        assertThat(getLocator(selector)).hasAttribute(attr, value);
+    }
+
+    public void assertThatHasTextWithTimeout(String selector, String text, double timeout) {
+        assertThat(getLocator(selector)).hasText(text, new LocatorAssertions.HasTextOptions().setTimeout(timeout));
+    }
+
     //Page management
     public void openNewContext() {
-        browserContext = browser.newContext();
+        browserContext = browser.newContext(PlaywrightSetup.getNewContextOptions());
     }
 
     public void closePage() {
@@ -308,6 +325,10 @@ public class PlaywrightFixture extends SlimFixture {
         currentPage.pause();
     }
 
+    public void debug(){
+        pause();
+    }
+
     public String getCurrentPage() {
         return currentPage.toString();
     }
@@ -333,16 +354,22 @@ public class PlaywrightFixture extends SlimFixture {
         return storageState;
     }
 
-//    public void openNewContextWithSavedStorageState() {
-//        this.browserContext = browser.newContext(PlaywrightSetup.getNewContextOptions().setStorageState(getStorageState()));
-//        setTimeout(timeout);
-//    }
-
-    public void openWithSavedStorageState(String url){
-        this.browserContext = browser.newContext(PlaywrightSetup.getNewContextOptions().setStorageState(getStorageState()));
+    public void openWithSavedStorageState(String url) {
+        browserContext = browser.newContext(PlaywrightSetup.getNewContextOptions().setStorageState(getStorageState()));
         setTimeout(timeout);
         open(url);
     }
+
+    public void saveStorageStateToFile(String name) {
+        browserContext.storageState(new BrowserContext.StorageStateOptions().setPath(new File(storageStateFolder, name + ".json").toPath()));
+    }
+
+//    public void openWithSavedStorageStateFromFile(String url, String name) {
+//        browserContext = browser.newContext(PlaywrightSetup.getNewContextOptions().setStorageStatePath(Paths.get(storageStateFolder + "/" + name + ".json")));
+//        setTimeout(timeout);
+//        open(url);
+//    }
+
 
     //Tracing
     public void startTrace() {

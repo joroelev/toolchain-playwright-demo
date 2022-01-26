@@ -2,17 +2,6 @@
 Suite
 ---
 !contents -R2 -g -p -f -h
-
-!*> Basic setup for tests with Slim
-Workaround for https://github.com/unclebob/fitnesse/issues/989
-!define slim.port {0}
-
-!define TEST_SYSTEM {slim}
-!define ALL_UNCLE_SUITE_SETUPS {true}
-
-The classpath location:
-!path fixtures
-!path fixtures/*.jar
-*!
+!define euCookieValue {!-CPTY566PTY566AKAmBENB_CgAAAAAH_AABpwAAARDAJMNS8gC7MscGTaNKoUQIwrCQqAUAFFAMLRFYAODgp2VgE-oIWACE1ARgRAgxBRgwCAAASAJCIgJACwQCIAiAQAAgBQgIQAETAILACwMAgAFANCxACgAECQgyOCo5TAgKkWiglsrEEoK9jTCAMs8CKBRGRUICNZogWBkJCwcxwBICXiyQPMUL5AAAAA.YAAACGgAAAAA-!}
 
 !defineDefaultFromProperties (FitNesseRoot/files/defaults.properties)

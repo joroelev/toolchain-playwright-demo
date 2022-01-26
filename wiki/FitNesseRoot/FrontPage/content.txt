@@ -1,21 +1,12 @@
-!img-l -m 20 -w 64 http://files/praeguslogo_small.png 
-
-!1 Welcome to the Toolchain Playwright Demo!
+!img-l -m 20 -w 64 http://files/praeguslogo_small.png
 
 !img -h 200 -w 200 http://files/playwright-logo.svg
 
-!3 https://playwright.dev/
 
-
-|'''Documentatie'''                                                                                          |
-|[[Toolchain User Guide][MyFirstSuite]]                        |''Toolchain docs''                           |
-|[[HSAC Fixtures][HsacExamples]]                               |''HSAC Documentatie''                        |
-|[[FitNesse User Guide][.FitNesse.UserGuide]]                  |''FitNesse User Guide''                      |
-|[[A Two-Minute Example][.FitNesse.UserGuide.TwoMinuteExample]]|''Korte introductie !-FitNesse-!.''          |
-|[[Acceptance Tests][.FitNesse.SuiteAcceptanceTests]]          |''FitNesse's Acceptatie Tests''              |
-|[[Release Notes][.FitNesse.ReleaseNotes]]                     |''Check de laatste wijzigingen aan FitNesse''|
+!1 Welcome to the Toolchain Playwright Demo!
 
 !3 Need extra support? 
-!5 Go to https://online.praegusacademy.nl/ for courses (Dutch only) and support (English and Dutch).
+
+!3 https://playwright.dev/
 
 !note Release ${FITNESSE_VERSION}

@@ -1,0 +1,43 @@
+---
+Test
+---
+!|script    |$browser                               |
+|navigate to|https://jouw.postnl.nl/online-versturen|
+
+!3 Locators are strict! 
+If multiple elements match the selector an exception is thrown
+
+!3 Text selector engine
+|script                    |
+|click|text=Pakket groot   |
+|click|text="Pakket"       |
+|click|"Direct naar PostNL"|
+
+!2 css selector engine
+|script            |
+|click|#next-button|
+
+!3 Xpath selector engine
+|script                                              |
+|enter|Ontvanger|as|//*[@id="recipient-0-first-name"]|
+
+!3 N-th match selector engine (0-based!)
+|script                                                  |
+|enter|van   |as|input >> nth=1                          |
+|enter|Pakket|as|input:below(#recipient-0-infix) >> nth=0|
+
+!3 Selector engines can be combined!
+|script                                                                                                                                 |
+|enter|2222AA|as|xpath=//pnl-contact-information-input/div/div/pnl-address-input >> css=.pci-form__wrapper >> id=recipient-0-postal-code|
+
+!3 Keyboard interaction
+|script   |
+|press|Tab|
+|type |2  |
+|press|Tab|
+
+|script|
+|select|A|in|#recipient-0-addition|
+
+|script                                                                                                                        |
+|check|normalized value of|pnl-alert[type=success]:below(#recipient-0-postal-code) >> nth=0|Zeilmakerstraat 2-A 2222AA KATWIJK ZH|

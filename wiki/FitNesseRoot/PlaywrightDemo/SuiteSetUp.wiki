@@ -17,3 +17,6 @@ The !-SuiteSetUp-! will run before any suite (or before a test in a suite is exe
 *!
 
 !include -c BrowserConfig
+
+|script                               |
+|$totp=|get totp for secret|${oktaKey}|

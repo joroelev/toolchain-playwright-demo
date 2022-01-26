@@ -1,0 +1,20 @@
+---
+Test
+---
+!3 Record trace
+!|script    |$browser                                                                                                                                   |
+|start trace                                                                                                                                            |
+|navigate to|https://jouw.postnl.nl/online-versturen                                                                                                    |
+|click      |text=Pakket groot                                                                                                                          |
+|click      |*css=.send-service__card >> text="Pakket"|and wait for response from url|https://jouw.postnl.nl/online-versturen/api/country/**/weightclass|
+|click      |text=Aangetekend                                                                                                                           |
+|click      |"Direct naar PostNL"                                                                                                                       |
+|save trace |toolchain-demo                                                                                                                             |
+|close page                                                                                                                                             |
+|close context                                                                                                                                          |
+
+!3 Open trace viewer
+|script                   |
+|open trace|toolchain-demo|
+
+!3 Trace can also be viewed online: https://trace.playwright.dev

@@ -7,6 +7,8 @@ import com.microsoft.playwright.options.ColorScheme;
 import nl.hsac.fitnesse.fixture.slim.SlimFixture;
 import nl.hsac.fitnesse.fixture.slim.SlimFixtureException;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
@@ -15,9 +17,13 @@ public final class PlaywrightSetup extends SlimFixture {
     private static Browser browser;
     private static BrowserType.LaunchOptions launchOptions = new BrowserType.LaunchOptions();
     private static Browser.NewContextOptions newContextOptions = new Browser.NewContextOptions();
+    private final File storageStateFolder = new File(getEnvironment().getFitNesseFilesSectionDir(), "storageState");
 
     public void setHeadless(Boolean headless) {
         launchOptions.setHeadless(headless);
+    }
+
+    public void setSlowMo(Double delay){  launchOptions.setSlowMo(delay);
     }
 
     public static void startBrowser(String browserName) {
@@ -66,6 +72,10 @@ public final class PlaywrightSetup extends SlimFixture {
 
     public static Browser.NewContextOptions getNewContextOptions() {
         return newContextOptions;
+    }
+
+    public void setStorageState(String name) {
+        PlaywrightSetup.getNewContextOptions().setStorageStatePath(Paths.get((storageStateFolder + "/" + name + ".json")));
     }
 
     public static Browser getBrowser() {
