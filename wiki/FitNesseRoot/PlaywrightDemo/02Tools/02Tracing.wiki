@@ -2,7 +2,7 @@
 Test
 ---
 !3 Record trace
-!|script    |$browser                               |
+!|script    |playwright fixture                               |
 |start trace                                        |
 |navigate to|https://jouw.postnl.nl/online-versturen|
 

@@ -1,13 +1,13 @@
 !3 Configure browser to use
-!define browser     {CHROMIUM}
-#!define browser     {FIREFOX}
+#!define browser     {CHROMIUM}
+!define browser     {FIREFOX}
 #!define browser     {WEBKIT}
 
 !3 Start browser with configured settings
-!|script                |playwright setup  |
-|set headless           |false             |
-|set slow mo            |1000              |
-|set viewport width     |375|and height|667|
-|set device scale factor|1                 |
-|start browser          |${browser}        |
-|$setup=                |get fixture       |
+!|script      |playwright setup                          |
+|set headless |false                                     |
+|#            |set slow mo            |1000              |
+|#            |set viewport width     |375|and height|667|
+|#            |set device scale factor|1                 |
+|start browser|${browser}                                |
+|$setup=      |get fixture                               |

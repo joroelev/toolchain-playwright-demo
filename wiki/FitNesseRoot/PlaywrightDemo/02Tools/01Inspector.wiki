@@ -1,0 +1,15 @@
+---
+Test
+---
+|script|playwright fixture|
+|debug                    |
+
+!|script                                                                                           |
+|navigate to|https://praegus.nl                                                                    |
+|click      |#wt-cli-accept-all-btn                                                                |
+|debug                                                                                             |
+|click      |[data-dsm-lightbox-id="dsm_button_one_lightbox dsm_button_0"]|with text|DEMO AANVRAGEN|
+|click      |text=Testautomatisering                                                               |
+
+|script                                   |
+|ensure|is checked|#wpforms-4585-field_6_9|
