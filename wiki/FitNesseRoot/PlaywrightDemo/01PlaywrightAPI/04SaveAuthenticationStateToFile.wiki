@@ -1,0 +1,20 @@
+---
+Test
+---
+!*> Start browser
+!|script    |playwright fixture|
+|set timeout|10000             |
+*!
+
+!3 Login and save the logged in state
+|script                                                                                                                    |
+|navigate to               |${oktaUrl}                                                                                     |
+|enter                     |${oktaUser}                                      |as           |#okta-signin-username          |
+|enter                     |${oktaPass}                                      |as           |#okta-signin-password          |
+|click                     |#okta-signin-submit                                                                            |
+|enter                     |$totp                                            |as           |[name="answer"]                |
+|click                     |text="Verify"                                                                                  |
+|assert that               |ul.app-buttons-list.clearfix.ui-sortable > li > p|has text     |Orangebeard                    |
+|assert that               |ul.app-buttons-list.clearfix.ui-sortable > li > p|has attribute|oldtitle|with value|Orangebeard|
+|save storage state to file|okta                                                                                           |
+|close context                                                                                                             |

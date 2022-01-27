@@ -1,0 +1,6 @@
+---
+Test
+---
+!|script    |playwright fixture|
+|navigate to|https://praegus.nl|
+|wait for   |3    |seconds    |

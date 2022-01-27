@@ -16,7 +16,16 @@ The !-SuiteSetUp-! will run before any suite (or before a test in a suite is exe
 |totp fixture|
 *!
 
-!include -c BrowserConfig
+!include -c .PlaywrightDemo.BrowserConfig
 
+!*> Set some testdata
+!3 Generate 2FA password
 |script                               |
 |$totp=|get totp for secret|${oktaKey}|
+
+!3 Define cookies
+# set cookie to prevent cookie consent popup
+!|ddt                :map fixture                                                             |
+|name                |value  |expires         |domain    |path|sameSite|cookie?               |
+|CookiePermissionInfo|go-away|2021-12-31 00:00|.postnl.nl|/   |LAX     |$cookiePermissionInfo=|
+*!

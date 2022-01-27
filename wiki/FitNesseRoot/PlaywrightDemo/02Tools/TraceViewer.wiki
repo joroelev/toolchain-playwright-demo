@@ -1,0 +1,9 @@
+---
+Test
+---
+!3 Open trace viewer
+|script                   |
+|open trace|toolchain-demo|
+
+!3 Trace can also be viewed using the webapp: https://trace.playwright.dev
+

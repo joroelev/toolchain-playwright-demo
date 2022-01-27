@@ -1,12 +1,17 @@
-!img-l -m 20 -w 64 http://files/praeguslogo_small.png
-
 !img -h 200 -w 200 http://files/playwright-logo.svg
 
 
 !1 Welcome to the Toolchain Playwright Demo!
 
-!3 Need extra support? 
+!3 This demo project: https://github.com/joroelev/toolchain-playwright-demo
 
-!3 https://playwright.dev/
+
+!3 Playwright documentation
+
+!3 Documentation: https://playwright.dev
+
+!3 Java documentation:  https://playwright.dev/java/docs/intro
+
+!3 Trace viewer: https://trace.playwright.dev
 
 !note Release ${FITNESSE_VERSION}

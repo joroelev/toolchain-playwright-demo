@@ -1,8 +1,13 @@
 ---
 Test
 ---
+!*> Start browser
+!|script    |playwright fixture|
+|set timeout|10000             |
+*!
+
 !3 Login and save the logged in state
-|script     |$browser                                                                                       |
+|script                                                                                                     |
 |navigate to|${oktaUrl}                                                                                     |
 |enter      |${oktaUser}                                      |as           |#okta-signin-username          |
 |enter      |${oktaPass}                                      |as           |#okta-signin-password          |
@@ -10,7 +15,6 @@ Test
 |enter      |$totp                                            |as           |[name="answer"]                |
 |click      |text="Verify"                                                                                  |
 |assert that|ul.app-buttons-list.clearfix.ui-sortable > li > p|has text     |Orangebeard                    |
-|assert that|ul.app-buttons-list.clearfix.ui-sortable > li > p|has attribute|oldtitle|with value|Orangebeard|
 |save storage state                                                                                         |
 |close context                                                                                              |
 
@@ -21,6 +25,6 @@ Test
 |close context              |
 
 !3 Open a new browser context with the saved state. No login needed!
-|script                                         |
-|open |${oktaUrl}   |with saved storage state   |
-|wait for |10 | seconds |
+|script                                      |
+|open    |${oktaUrl}|with saved storage state|
+|wait for|5         |seconds                 |

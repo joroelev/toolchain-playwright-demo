@@ -7,7 +7,7 @@ Test
 !|script                                                                                          |
 |navigate to|https://praegus.nl                                                                   |
 |click      |text=OK                                                                              |
-|click      |[data-dsm-lightbox-id="dsm_button_one_lightbox dsm_button_0"]|has text|DEMO AANVRAGEN|
+|click      |[data-dsm-lightbox-id="dsm_button_one_lightbox dsm_button_0"]|with text|DEMO AANVRAGEN|
 |click      |text=Testautomatisering                                                              |
 
 |script                                   |

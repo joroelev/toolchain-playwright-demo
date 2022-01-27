@@ -2,6 +2,4 @@
 Suite
 ---
 !contents -R2 -g -p -f -h
-!define euCookieValue {!-CPTY566PTY566AKAmBENB_CgAAAAAH_AABpwAAARDAJMNS8gC7MscGTaNKoUQIwrCQqAUAFFAMLRFYAODgp2VgE-oIWACE1ARgRAgxBRgwCAAASAJCIgJACwQCIAiAQAAgBQgIQAETAILACwMAgAFANCxACgAECQgyOCo5TAgKkWiglsrEEoK9jTCAMs8CKBRGRUICNZogWBkJCwcxwBICXiyQPMUL5AAAAA.YAAACGgAAAAA-!}
-
 !defineDefaultFromProperties (FitNesseRoot/files/defaults.properties)

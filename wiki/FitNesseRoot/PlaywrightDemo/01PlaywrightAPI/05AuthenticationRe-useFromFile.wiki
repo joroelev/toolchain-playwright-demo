@@ -1,0 +1,13 @@
+---
+Test
+---
+|script           |$setup|
+|set storage state|okta  |
+
+!3 Open a new browser context with the saved state. No login needed!
+!|script|playwright fixture|
+|open   |${oktaUrl}        |
+
+|script                                                                                                        |
+|assert that|text=Work Orangebeard >> :nth-match(a, 4)|has attribute           |oldtitle|with value|Orangebeard|
+|check      |value of                      |[oldtitle="Orangebeard"]|Polaris                        |

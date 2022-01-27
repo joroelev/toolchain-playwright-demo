@@ -1,7 +1,9 @@
 ---
 Test
 ---
+!3 Record trace
 !|script    |$browser                               |
+|start trace                                        |
 |navigate to|https://jouw.postnl.nl/online-versturen|
 
 !3 Locators are strict! 
@@ -36,8 +38,13 @@ If multiple elements match the selector an exception is thrown
 |type |2  |
 |press|Tab|
 
-|script|
+|script                           |
 |select|A|in|#recipient-0-addition|
 
-|script                                                                                                                        |
+|script                                                                                                                          |
 |check|normalized value of|pnl-alert[type=success]:below(#recipient-0-postal-code) >> nth=0|Zeilmakerstraat 2-A 2222AA KATWIJK ZH|
+
+|script                   |
+|save trace|toolchain-demo|
+|close page               |
+|close context            |
